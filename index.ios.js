@@ -1,52 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
+// Import some code we need
+var Moment = require('moment');
+var React = require('react-native');
+var AppRegistry = React.AppRegistry;
+var View = React.View;
+var Text = React.Text;
+var StyleSheet = React.StyleSheet;
+var DayItem = require('./src/day-item');
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 
-class weekdays extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+
+// Create a React component
+var Weekdays = React.createClass({
+  render: function() {
+    return <View style={styles.container}>
+      <Text style={styles.h1}>
+        Days of the week:
+      </Text>
+      <Text>
+        {Moment().format('ddd')}
+      </Text>
+      {this.days()}
+    </View>
+  },
+  days: function() {
+    return DAYS.map(function(day){
+      // Called 7 times, one for each day of the week
+      return <DayItem day={day} />
+    });
   }
-}
+});
 
-const styles = StyleSheet.create({
+// Style the React component
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    backgroundColor: '#AEAEAE'
+  }
 });
 
-AppRegistry.registerComponent('weekdays', () => weekdays);
+// Show the React component on the screen
+AppRegistry.registerComponent('weekdays', function() {
+  return Weekdays
+});
